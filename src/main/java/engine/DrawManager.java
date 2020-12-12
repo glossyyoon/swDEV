@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import screen.DifficultyLevelScreen;
 import screen.Screen;
 import entity.Entity;
 import entity.Ship;
@@ -236,11 +237,23 @@ public final class DrawManager {
 	 * @param score
 	 *            Current score.
 	 */
+
+	/*
+	 * 점수에 난이도를 표시함.
+	 */
 	public void drawScore(final Screen screen, final int score) {
+		String difficult ="";
+		if(DifficultyLevelScreen.getOption()==2){
+			difficult +="Easy";
+		}else if(DifficultyLevelScreen.getOption()==3){
+			difficult+="Normal";
+		}else{
+			difficult+="Hard";
+		}
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
-		String scoreString = String.format("%04d", score);
-		backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25);
+		String scoreString = difficult+" "+String.format("%04d", score);
+		backBufferGraphics.drawString(scoreString, screen.getWidth() - 120, 25);  //x축을 기존보다 왼쪽으로 옮김
 	}
 
 	/**
@@ -289,6 +302,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, instructionsString,
 				screen.getHeight() / 2);
+		backBufferGraphics.setColor(Color.GRAY);
 
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
@@ -303,10 +317,16 @@ public final class DrawManager {
 	 *            Option selected.
 	 */
 	public void drawMenu(final Screen screen, final int option) {
+		String DifficultLevel = "Difficult Level";   // 첫 화면에서 난이도 선택 메뉴 추가
 		String playString = "Play";
 		String highScoresString = "High scores";
 		String exitString = "exit";
-
+		if(option==4)
+			backBufferGraphics.setColor(Color.GREEN);
+		else
+			backBufferGraphics.setColor(Color.WHITE);
+		drawCenteredRegularString(screen, DifficultLevel,
+				screen.getHeight() / 2 +50 );    //첫 화면에서 난이도 선택 메뉴 추가
 		if (option == 2)
 			backBufferGraphics.setColor(Color.GREEN);
 		else
@@ -325,6 +345,51 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 4);
+	}
+
+	/*
+	 * difficultymenu만들어줘서 난이도 설정 가능하게함.
+	 */
+	public void difficultyMenu(final Screen screen,int n) {
+		String easy = "Easy";   // 첫 화면에서 난이도 선택 메뉴 추가
+		String normal = "Normal";
+		String hard = "Hard";
+
+		switch(n){
+			case 2:
+				backBufferGraphics.setColor(Color.GREEN);
+				drawCenteredRegularString(screen, easy,
+						screen.getHeight() / 3 * 2);
+				backBufferGraphics.setColor(Color.WHITE);
+				drawCenteredRegularString(screen, normal, screen.getHeight()
+						/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+				drawCenteredRegularString(screen, hard, screen.getHeight() / 3
+						* 2 + fontRegularMetrics.getHeight() * 4);
+				break;
+			case 3:
+				backBufferGraphics.setColor(Color.GREEN);
+				drawCenteredRegularString(screen, normal, screen.getHeight()
+						/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+				backBufferGraphics.setColor(Color.WHITE);
+				drawCenteredRegularString(screen, easy,
+						screen.getHeight() / 3 * 2);
+				drawCenteredRegularString(screen, hard, screen.getHeight() / 3
+						* 2 + fontRegularMetrics.getHeight() * 4);
+				break;
+			case 0:
+				backBufferGraphics.setColor(Color.GREEN);
+				drawCenteredRegularString(screen, hard, screen.getHeight() / 3
+						* 2 + fontRegularMetrics.getHeight() * 4);
+				backBufferGraphics.setColor(Color.WHITE);
+				drawCenteredRegularString(screen, easy,
+						screen.getHeight() / 3 * 2);
+				drawCenteredRegularString(screen, normal, screen.getHeight()
+						/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+				break;
+			default:
+				break;
+		}
+
 	}
 
 	/**
