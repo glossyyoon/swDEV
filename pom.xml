@@ -7,8 +7,8 @@
     <name>Invader</name>
 
     <properties>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.comiler.source>1.8</maven.comiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.comiler.source>11</maven.comiler.source>
         <junit.jupiter.version>5.4.0</junit.jupiter.version>
     </properties>
 
