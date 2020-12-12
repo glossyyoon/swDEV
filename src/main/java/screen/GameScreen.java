@@ -145,6 +145,7 @@ public class GameScreen extends Screen {
 	 * Updates the elements on screen and checks for events.
 	 */
 	protected final void update() {
+		boolean isPause = true;
 		super.update();
 
 		if (this.inputDelay.checkFinished() && !this.levelFinished) {
@@ -189,6 +190,20 @@ public class GameScreen extends Screen {
 				this.enemyShipSpecial = null;
 				this.logger.info("The special ship has escaped");
 			}
+			
+			
+			//여기서 부터
+			boolean pause = inputManager.isKeyDown(KeyEvent.VK_ESCAPE);
+			if (pause) {
+				//아래의 코드를 함수로 
+				
+				while(isPause) {
+					drawPause();
+					boolean regame = inputManager.isKeyDown(KeyEvent.VK_R);
+					isPause = isPause(regame);
+				}
+			}
+			//여기까지 고친 코드
 
 			this.ship.update();
 			this.enemyShipFormation.update();
@@ -208,6 +223,24 @@ public class GameScreen extends Screen {
 		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
 			this.isRunning = false;
 
+	}
+	
+	//이거 만든 메소드
+	private boolean isPause(boolean regame) {
+		
+		if(regame) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	//이것도 만든 메소드
+	private void drawPause() {
+		drawManager.initDrawing(this);
+		drawManager.drawPauseMenu(this);
+		drawManager.completeDrawing(this);
+		
 	}
 
 	/**
