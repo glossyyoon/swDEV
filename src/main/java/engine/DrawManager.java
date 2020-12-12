@@ -268,7 +268,7 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
-		Ship dummyShip = new Ship(0, 0);
+		Ship dummyShip = new Ship(0, 0, 0);
 		for (int i = 0; i < lives; i++)
 			drawEntity(dummyShip, 40 + 35 * i, 10);
 	}
@@ -509,6 +509,19 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, continueOrExitString,
 				screen.getHeight() / 2 + fontRegularMetrics.getHeight() * 10);
+	}
+	
+	//���� ������ �ڵ�
+	public void drawPauseMenu(final Screen screen) {
+		String pauseString = "Pause";
+		String restartString = "Pree R to ReStart";
+		
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, pauseString, screen.getHeight() / 4);
+
+		backBufferGraphics.setColor(Color.GRAY);
+		drawCenteredRegularString(screen, restartString,
+				screen.getHeight() / 2);
 	}
 
 	/**

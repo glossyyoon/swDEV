@@ -69,7 +69,7 @@ public class HighScoreScreen extends Screen {
 	private void draw() {
 		drawManager.initDrawing(this);
 
-		drawManager.drawHighScoreMenu(this);
+		drawManager.drawHighScoreMenu(this); //이 메소드에다가 지우려면 R버튼 눌러 쓰기
 		drawManager.drawHighScores(this, this.highScores);
 
 		drawManager.completeDrawing(this);

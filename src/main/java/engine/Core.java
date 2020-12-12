@@ -100,6 +100,8 @@ public final class Core {
 	private static Handler fileHandler;
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
+	
+	private static int playerNum = 2;
 
 
 	/**
@@ -159,11 +161,18 @@ public final class Core {
 		HardgameSettings.add(Hard_SETTINGS_LEVEL_6);
 		HardgameSettings.add(Hard_SETTINGS_LEVEL_7);
 
-		GameState gameState;
+
+		
+		GameState[] gameStates = new GameState[playerNum];
+		boolean isAllLive = false;
+		
 
 		int returnCode = 1;
 		do {
-			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+			for(int i = 0; i < gameStates.length; i++)
+			{
+				gameStates[i] = new GameState(1, 0, MAX_LIVES, 0, 0);
+			}
 
 			switch (returnCode) {
 			case 1:
@@ -178,46 +187,55 @@ public final class Core {
 				// Game & score.
 				do {
 					// One extra live every few levels.
-					boolean bonusLife = gameState.getLevel()
+					boolean bonusLife = gameStates[0].getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
-							&& gameState.getLivesRemaining() < MAX_LIVES;
+
+							&& gameStates[0].getLivesRemaining() < MAX_LIVES;
 
 					if(DifficultyLevelScreen.getOption()==3){
-						currentScreen = new GameScreen(gameState,
-								NormalgameSettings.get(gameState.getLevel() - 1),
+						currentScreen = new GameScreen(gameStates,
+								NormalgameSettings.get(gameStates[0].getLevel() - 1),
 								bonusLife, width, height, FPS);
 					}else if(DifficultyLevelScreen.getOption()==0){
-						currentScreen = new GameScreen(gameState,
-								HardgameSettings.get(gameState.getLevel() - 1),
+						currentScreen = new GameScreen(gameStates,
+								HardgameSettings.get(gameStates[0].getLevel() - 1),
 								bonusLife, width, height, FPS);
 					}else {
-						currentScreen = new GameScreen(gameState,
-								gameSettings.get(gameState.getLevel() - 1),
+						currentScreen = new GameScreen(gameStates,
+								gameSettings.get(gameStates[0].getLevel() - 1),
 								bonusLife, width, height, FPS);
 					}
+
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " game screen at " + FPS + " fps.");
 					frame.setScreen(currentScreen);
 					LOGGER.info("Closing game screen.");
+					
+				gameStates = ((GameScreen) currentScreen).getGameState();
+				for(int i = 0; i < gameStates.length; i++) {
 
-					gameState = ((GameScreen) currentScreen).getGameState();
+					gameStates[i] = new GameState(gameStates[i].getLevel() + 1,
+							gameStates[i].getScore(),
+							gameStates[i].getLivesRemaining(),
+							gameStates[i].getBulletsShot(),
+							gameStates[i].getShipsDestroyed());
+				}
+				
+				for(int i = 0; i < gameStates.length; i++) { // check if all ships is dead
+					isAllLive = isAllLive || (gameStates[i].getLivesRemaining() > 0);
+				}
+				} while (isAllLive && gameStates[0].getLevel() <= NUM_LEVELS);
 
-					gameState = new GameState(gameState.getLevel() + 1,
-							gameState.getScore(),
-							gameState.getLivesRemaining(),
-							gameState.getBulletsShot(),
-							gameState.getShipsDestroyed());
-
-				} while (gameState.getLivesRemaining() > 0
-						&& gameState.getLevel() <= NUM_LEVELS);
-
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " score screen at " + FPS + " fps, with a score of "
-						+ gameState.getScore() + ", "
-						+ gameState.getLivesRemaining() + " lives remaining, "
-						+ gameState.getBulletsShot() + " bullets shot and "
-						+ gameState.getShipsDestroyed() + " ships destroyed.");
-				currentScreen = new ScoreScreen(width, height, FPS, gameState);
+				for(int i = 0; i < gameStates.length; i++) {
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " score screen at " + FPS + " fps, with a score of "
+							+ gameStates[i].getScore() + ", "
+							+ gameStates[i].getLivesRemaining() + " lives remaining, "
+							+ gameStates[i].getBulletsShot() + " bullets shot and "
+							+ gameStates[i].getShipsDestroyed() + " ships destroyed.");
+				}
+					
+				currentScreen = new ScoreScreen(width, height, FPS, gameStates[0]);
 				returnCode = frame.setScreen(currentScreen);
 				LOGGER.info("Closing score screen.");
 				break;
