@@ -53,6 +53,37 @@ public final class Core {
 	/** Difficulty settings for level 7. */
 	private static final GameSettings SETTINGS_LEVEL_7 =
 			new GameSettings(8, 7, 2, 500);
+
+	private static final GameSettings Normal_SETTINGS_LEVEL_1 =
+			new GameSettings(6, 4, 60, 2000);
+	private static final GameSettings Normal_SETTINGS_LEVEL_2 =
+			new GameSettings(6, 5, 50, 2500);
+	private static final GameSettings Normal_SETTINGS_LEVEL_3 =
+			new GameSettings(7, 5, 40, 1500);
+	private static final GameSettings Normal_SETTINGS_LEVEL_4 =
+			new GameSettings(7, 7, 30, 1500);
+	private static final GameSettings Normal_SETTINGS_LEVEL_5 =
+			new GameSettings(7, 7, 20, 1000);
+	private static final GameSettings Normal_SETTINGS_LEVEL_6 =
+			new GameSettings(7, 8, 10, 1000);
+	private static final GameSettings Normal_SETTINGS_LEVEL_7 =
+			new GameSettings(8, 8, 2, 500);
+
+	private static final GameSettings Hard_SETTINGS_LEVEL_1 =
+			new GameSettings(6, 5, 60, 1800);
+	private static final GameSettings Hard_SETTINGS_LEVEL_2 =
+			new GameSettings(6, 5, 50, 1500);
+	private static final GameSettings Hard_SETTINGS_LEVEL_3 =
+			new GameSettings(7, 6, 40, 1500);
+	private static final GameSettings Hard_SETTINGS_LEVEL_4 =
+			new GameSettings(7, 7, 30, 1500);
+	private static final GameSettings Hard_SETTINGS_LEVEL_5 =
+			new GameSettings(7, 8, 20, 1000);
+	private static final GameSettings Hard_SETTINGS_LEVEL_6 =
+			new GameSettings(8, 8, 10, 500);
+	private static final GameSettings Hard_SETTINGS_LEVEL_7 =
+			new GameSettings(9, 8, 2, 500);
+
 	
 	/** Frame to draw the screen on. */
 	private static Frame frame;
@@ -60,6 +91,8 @@ public final class Core {
 	private static Screen currentScreen;
 	/** Difficulty settings list. */
 	private static List<GameSettings> gameSettings;
+	private static List<GameSettings> NormalgameSettings;
+	private static List<GameSettings> HardgameSettings;
 	/** Application logger. */
 	private static final Logger LOGGER = Logger.getLogger(Core.class
 			.getSimpleName());
@@ -107,7 +140,25 @@ public final class Core {
 		gameSettings.add(SETTINGS_LEVEL_5);
 		gameSettings.add(SETTINGS_LEVEL_6);
 		gameSettings.add(SETTINGS_LEVEL_7);
-		
+
+		NormalgameSettings = new ArrayList<GameSettings>();
+		NormalgameSettings.add(Normal_SETTINGS_LEVEL_1);
+		NormalgameSettings.add(Normal_SETTINGS_LEVEL_2);
+		NormalgameSettings.add(Normal_SETTINGS_LEVEL_3);
+		NormalgameSettings.add(Normal_SETTINGS_LEVEL_4);
+		NormalgameSettings.add(Normal_SETTINGS_LEVEL_5);
+		NormalgameSettings.add(Normal_SETTINGS_LEVEL_6);
+		NormalgameSettings.add(Normal_SETTINGS_LEVEL_7);
+
+		HardgameSettings = new ArrayList<GameSettings>();
+		HardgameSettings.add(Hard_SETTINGS_LEVEL_1);
+		HardgameSettings.add(Hard_SETTINGS_LEVEL_2);
+		HardgameSettings.add(Hard_SETTINGS_LEVEL_3);
+		HardgameSettings.add(Hard_SETTINGS_LEVEL_4);
+		HardgameSettings.add(Hard_SETTINGS_LEVEL_5);
+		HardgameSettings.add(Hard_SETTINGS_LEVEL_6);
+		HardgameSettings.add(Hard_SETTINGS_LEVEL_7);
+
 		GameState gameState;
 
 		int returnCode = 1;
@@ -130,10 +181,20 @@ public final class Core {
 					boolean bonusLife = gameState.getLevel()
 							% EXTRA_LIFE_FRECUENCY == 0
 							&& gameState.getLivesRemaining() < MAX_LIVES;
-					
-					currentScreen = new GameScreen(gameState,
-							gameSettings.get(gameState.getLevel() - 1),
-							bonusLife, width, height, FPS);
+
+					if(DifficultyLevelScreen.getOption()==3){
+						currentScreen = new GameScreen(gameState,
+								NormalgameSettings.get(gameState.getLevel() - 1),
+								bonusLife, width, height, FPS);
+					}else if(DifficultyLevelScreen.getOption()==0){
+						currentScreen = new GameScreen(gameState,
+								HardgameSettings.get(gameState.getLevel() - 1),
+								bonusLife, width, height, FPS);
+					}else {
+						currentScreen = new GameScreen(gameState,
+								gameSettings.get(gameState.getLevel() - 1),
+								bonusLife, width, height, FPS);
+					}
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " game screen at " + FPS + " fps.");
 					frame.setScreen(currentScreen);
