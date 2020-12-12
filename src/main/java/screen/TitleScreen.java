@@ -80,7 +80,9 @@ public class TitleScreen extends Screen {
 		if (this.returnCode == 3)
 			this.returnCode = 0;
 		else if (this.returnCode == 0)
-			this.returnCode = 2;
+			this.returnCode = 4;
+		else if(this.returnCode ==4)
+			this.returnCode=2;
 		else
 			this.returnCode++;
 	}
@@ -92,9 +94,19 @@ public class TitleScreen extends Screen {
 		if (this.returnCode == 0)
 			this.returnCode = 3;
 		else if (this.returnCode == 2)
+			this.returnCode = 4;
+		else if(this.returnCode == 4)
+			this.returnCode =0;
+		else
+			this.returnCode--;
+		/*
+		if (this.returnCode == 0)
+			this.returnCode = 3;
+		else if (this.returnCode == 2)
 			this.returnCode = 0;
 		else
 			this.returnCode--;
+		 */
 	}
 
 	/**
