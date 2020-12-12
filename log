@@ -1,0 +1,37 @@
+[INFO|10:12:59]: Started loading resources. 
+[FINE|10:12:59]: Sprite Ship loaded. 
+[FINE|10:12:59]: Sprite ShipDestroyed loaded. 
+[FINE|10:12:59]: Sprite Bullet loaded. 
+[FINE|10:12:59]: Sprite EnemyBullet loaded. 
+[FINE|10:12:59]: Sprite EnemyShipA1 loaded. 
+[FINE|10:12:59]: Sprite EnemyShipA2 loaded. 
+[FINE|10:12:59]: Sprite EnemyShipB1 loaded. 
+[FINE|10:12:59]: Sprite EnemyShipB2 loaded. 
+[FINE|10:12:59]: Sprite EnemyShipC1 loaded. 
+[FINE|10:12:59]: Sprite EnemyShipC2 loaded. 
+[FINE|10:12:59]: Sprite EnemyShipSpecial loaded. 
+[FINE|10:12:59]: Sprite Explosion loaded. 
+[INFO|10:12:59]: Finished loading the sprites. 
+[INFO|10:12:59]: Finished loading the fonts. 
+[INFO|10:12:59]: Starting 448x520 title screen at 60 fps. 
+[INFO|10:13:02]: Closing title screen. 
+[INFO|10:13:02]: Starting 448x520 game screen at 60 fps. 
+[INFO|10:13:02]: Initializing 5x4 ship formation in (20,100) 
+[INFO|10:13:09]: Destroyed ship in (4,3) 
+[INFO|10:13:09]: Removed enemy 3 from column 4 
+[INFO|10:13:10]: Destroyed ship in (3,3) 
+[INFO|10:13:10]: Removed enemy 3 from column 3 
+[INFO|10:13:11]: Destroyed ship in (3,2) 
+[INFO|10:13:11]: Removed enemy 2 from column 3 
+[INFO|10:13:12]: Destroyed ship in (3,1) 
+[INFO|10:13:12]: Removed enemy 1 from column 3 
+[INFO|10:13:13]: Destroyed ship in (3,0) 
+[INFO|10:13:13]: Shooters list reduced to 4 members. 
+[INFO|10:13:13]: Removed enemy 0 from column 3 
+[INFO|10:13:13]: Removed column 3 
+[INFO|10:13:13]: Destroyed ship in (2,0) 
+[INFO|10:13:14]: Destroyed ship in (2,3) 
+[INFO|10:13:14]: Removed enemy 0 from column 2 
+[INFO|10:13:14]: Removed enemy 3 from column 2 
+[INFO|10:13:15]: Destroyed ship in (2,1) 
+[INFO|10:13:15]: Removed enemy 1 from column 2 
